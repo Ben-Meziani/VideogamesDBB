@@ -45,6 +45,11 @@ class Videogame
         $this->users = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->categories;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

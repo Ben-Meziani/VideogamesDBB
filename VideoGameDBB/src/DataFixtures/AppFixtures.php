@@ -32,12 +32,13 @@ class AppFixtures extends Fixture
             $categoryList[] = $category;
         }
 
-        for($j = 0; $j <= 20; $j++){
+        for($j = 0; $j <= 5; $j++){
             $videogame = new Videogame;
-            $videogame->setName($faker->company)
+            $videogame
+                    ->setName($faker->company)
                     ->setReleaseDate($faker->dateTimeBetween('-5 years', 'now'));
             //Cette boucle sert à ajouter entre une et 5 catégories à un jeux
-            for($k = 0; $k <= mt_rand(1, 5); $k++){
+            for($k = 0; $k <= mt_rand(1, 2); $k++){
              //L'index du tableau commençant a 0, on retire 1 pour être sur de récupérer une valeur existante dans le tableau
                 $categoryRandom = $categoryList[mt_rand(0, count($categoryList)-1)];
                 //Ici on vérifie qu'un jeu n'est pas lié à une catégorie pour éviter les doublons
@@ -49,10 +50,11 @@ class AppFixtures extends Fixture
             $videogameList[] = $videogame;
         }
 
-        for($q = 0; $q < 10; $q++){
+        for($q = 0; $q < 3; $q++){
             $user = new User;
             $name = $faker->firstName;
-            $user->setName($name)
+            $user
+                ->setName($name)
                 ->setEmail($name.$q . '@gmail.com')
                 ->setIsVerified(true)
                 ->setRoles(["ROLE_USER"])
