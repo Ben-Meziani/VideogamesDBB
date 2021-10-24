@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
-        $categoryArray = array('FPS', 'Action', 'Aventure', 'Stratégie', 'Jeux de société');
+        $categoryArray = ['FPS', 'Action', 'Aventure', 'Stratégie', 'Jeux de société'];
         $categoryList = [];
         $videogameList = [];
         for ($i = 0; $i < count($categoryArray); $i++) {
