@@ -6,6 +6,7 @@ use App\Repository\VideogameRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=VideogameRepository::class)
@@ -16,16 +17,19 @@ class Videogame
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"api_videogame"})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
+     * @Groups({"api_videogame"})
      */
     private $releaseDate;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="Videogames")
+     * @Groups({"api_videogame"})
      */
     private $categories;
 
@@ -36,11 +40,13 @@ class Videogame
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups({"api_videogame"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"api_videogame"})
      */
     private $imageFilename;
 

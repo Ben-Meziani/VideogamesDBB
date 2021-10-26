@@ -40,10 +40,10 @@ class UploadImageCommand extends Command
     {
         $videogames = $this->videogameRepository->findAll();
         foreach($videogames as $videogame){
-            $image = 'bbbbbbbbbbbbbbbbbbbbbbb';
-            $videogame->setImageFilename($image);
+            $videogame->setImageFilename('bbbbbbbbbbbbbbbbbbbbbbb');
         }
        $this->em->flush();
+
         $io = new SymfonyStyle($input, $output);
         $arg1 = $input->getArgument('arg1');
 
