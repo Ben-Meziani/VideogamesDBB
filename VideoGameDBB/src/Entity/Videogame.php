@@ -28,7 +28,7 @@ class Videogame
     private $releaseDate;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="Videogames")
+     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="Videogames",cascade={"persist"})
      * @Groups({"api_videogame"})
      */
     private $categories;

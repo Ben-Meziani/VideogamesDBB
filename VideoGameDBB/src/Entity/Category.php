@@ -24,11 +24,13 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"api_videogame"})
      */
     private $label;
 
     /**
      * @ORM\ManyToMany(targetEntity=Videogame::class, inversedBy="categories")
+     * @Groups({"api_videogame"})
      */
     private $Videogames;
 
