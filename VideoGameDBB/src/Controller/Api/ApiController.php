@@ -39,6 +39,7 @@ class ApiController extends AbstractController
         $data = json_decode($request->getContent(), true);
         if(isset($data)){
             $id = $data['categories'][0]['id'];
+            $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
             if(is_null($id) || $id == 0 || $id > 5) {
                 return new Response(
                     "Dude, l'id de la catégory n'est pas la bonne", 
@@ -51,11 +52,14 @@ class ApiController extends AbstractController
             $videogame->setImageFilename($data['imageFilename']);
             $videogame->addCategory($category);
             $form = $this->createForm(RegisterVideogameType::class, $videogame);
-            $form->submit($data);
-            $em->persist($videogame);
-            $em->flush();
+            $form->submit($data, true);
+            if($form->isSubmitted()){
+                $em->persist($videogame);
+                $em->flush();
+                //$this->addFlash('success', 'Bien créé avec succès');
+                return $this->json($videogame, 201, [], ['groups' => 'api_videogame']);
+            }
             
-            return $this->json($videogame, 201, [], ['groups' => 'api_videogame']);
         }else{
             return new Response(
                 "Dude, ta requète est mauvaise donc je te met une 400 !!!!!!!!!!!!!!!!!!!!", 
@@ -63,4 +67,16 @@ class ApiController extends AbstractController
             ); 
         }
     }
+
+    /**
+     * @Route("/{id}", name="delete", methods={"POST"})
+     */
+    public function delete(Request $request, Videogame $videogame): Response
+    {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($videogame);
+            $entityManager->flush();
+        return $this->redirectToRoute('videogame_index', [], Response::HTTP_SEE_OTHER);
+    }
+    
 }

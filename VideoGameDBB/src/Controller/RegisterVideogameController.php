@@ -11,7 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 
-
+ /**
+ * @Route("/register", name="register")
+ */
 class RegisterVideogameController extends AbstractController
 {
       /**
@@ -30,7 +32,7 @@ class RegisterVideogameController extends AbstractController
    }
 
     /**
-     * @Route("/register/videogame", name="register_videogame")
+     * @Route("/videogame", name="_videogame")
      */
     public function index(): Response
     {
@@ -40,7 +42,7 @@ class RegisterVideogameController extends AbstractController
     }
 
     /**
-     * @Route("/register/videogame/create", name="register_videogame_create")
+     * @Route("/videogame/create", name="_videogame_create")
      */
     public function new(Request $request)
     {

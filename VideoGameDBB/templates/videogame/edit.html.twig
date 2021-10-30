@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Videogame{% endblock %}
+
+{% block body %}
+    <h1>Edit Videogame</h1>
+
+    {{ include('videogame/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('videogame_index') }}">back to list</a>
+
+    {{ include('videogame/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Videogame index{% endblock %}
+
+{% block body %}
+    <h1>Videogame index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>ReleaseDate</th>
+                <th>Name</th>
+                <th>ImageFilename</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for videogame in videogames %}
+            <tr>
+                <td>{{ videogame.id }}</td>
+                <td>{{ videogame.releaseDate ? videogame.releaseDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ videogame.name }}</td>
+                <td>{{ videogame.imageFilename }}</td>
+                <td>
+                    <a href="{{ path('videogame_show', {'id': videogame.id}) }}">show</a>
+                    <a href="{{ path('videogame_edit', {'id': videogame.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('videogame_new') }}">Create new</a>
+{% endblock %}
