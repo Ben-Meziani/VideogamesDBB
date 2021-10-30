@@ -37,14 +37,14 @@ class ApiController extends AbstractController
     public function JsonCreateVideoGame(Request $request, EntityManagerInterface $em)
     {
         $data = json_decode($request->getContent(), true);
-        $id = $data['categories'][0]['id'];
-        if(isset($data) && isset($id)){
-            // if(is_null($id) || 1 < $id && $id < 5) {
-            //     return new Response(
-            //         "Dude, l'id de la catégory n'est pas la bonne", 
-            //          Response::HTTP_OK
-            //     );
-            // }
+        if(isset($data)){
+            $id = $data['categories'][0]['id'];
+            if(is_null($id) || $id == 0 || $id > 5) {
+                return new Response(
+                    "Dude, l'id de la catégory n'est pas la bonne", 
+                     Response::HTTP_OK
+                );
+            }
             $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
             $videogame = new Videogame();
             $videogame->setReleaseDate(new \DateTime($data['releaseDate']));
@@ -56,6 +56,11 @@ class ApiController extends AbstractController
             $em->flush();
             
             return $this->json($videogame, 201, [], ['groups' => 'api_videogame']);
+        }else{
+            return new Response(
+                "Dude, ta requète est mauvaise donc je te met une 400 !!!!!!!!!!!!!!!!!!!!", 
+                 Response::HTTP_OK
+            ); 
         }
     }
 }
