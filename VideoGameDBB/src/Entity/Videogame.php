@@ -25,10 +25,10 @@ class Videogame
      * @ORM\Column(type="datetime")
      * @Groups({"api_videogame"})
      */
-    private $releaseDate;
+    public $releaseDate;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="Videogames",cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="Videogames", cascade={"persist"})
      * @Groups({"api_videogame"})
      */
     private $categories;

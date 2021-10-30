@@ -23,14 +23,13 @@ class Category
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable="true")
      * @Groups({"api_videogame"})
      */
     private $label;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Videogame::class, inversedBy="categories")
-     * @Groups({"api_videogame"})
+     * @ORM\ManyToMany(targetEntity=Videogame::class, inversedBy="categories",cascade={"persist"})
      */
     private $Videogames;
 
