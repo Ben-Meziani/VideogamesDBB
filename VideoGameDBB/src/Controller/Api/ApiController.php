@@ -75,8 +75,9 @@ class ApiController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);  
         $id = $data['categories'][0]['id'];
+        $idVG = $request->attributes->parameters["id"];
         $category = $em->getRepository(Category::class)->find($id);
-        $videogame = new Videogame();
+        $videogame = $em->getRepository(Videogame::class)->find($idVG);
         $videogame->setReleaseDate(new \DateTime($data['releaseDate']));
         $videogame->setImageFilename($data['imageFilename']);
         $videogame->addCategory($category);
