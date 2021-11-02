@@ -68,6 +68,25 @@ class ApiController extends AbstractController
         }
     }
 
+     /**
+     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, EntityManagerInterface $em): Response
+    {
+        $data = json_decode($request->getContent(), true);  
+        $id = $data['categories'][0]['id'];
+        $category = $em->getRepository(Category::class)->find($id);
+        $videogame = new Videogame();
+        $videogame->setReleaseDate(new \DateTime($data['releaseDate']));
+        $videogame->setImageFilename($data['imageFilename']);
+        $videogame->addCategory($category);
+        $form = $this->createForm(RegisterVideogameType::class, $videogame);
+        $form->submit($data, true);
+        $em->flush();
+        return $this->json($videogame, 201, [], ['groups' => 'api_videogame']);
+    }
+
+
     /**
      * @Route("/{id}", name="delete", methods={"POST"})
      */
