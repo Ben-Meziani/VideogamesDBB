@@ -71,11 +71,11 @@ class ApiController extends AbstractController
      /**
      * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, EntityManagerInterface $em): Response
+    public function edit(Videogame $videogame, Request $request, EntityManagerInterface $em): Response
     {
-        $data = json_decode($request->getContent(), true);  
+        $data = json_decode($request->getContent(), true);
         $id = $data['categories'][0]['id'];
-        $idVG = $request->attributes->parameters["id"];
+        $idVG = $videogame->getId();
         $category = $em->getRepository(Category::class)->find($id);
         $videogame = $em->getRepository(Videogame::class)->find($idVG);
         $videogame->setReleaseDate(new \DateTime($data['releaseDate']));
