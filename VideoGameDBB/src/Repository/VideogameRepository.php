@@ -19,6 +19,18 @@ class VideogameRepository extends ServiceEntityRepository
         parent::__construct($registry, Videogame::class);
     }
 
+      /**
+     *
+     * @return Videgame[]
+     */
+    public function findLatest()
+    {
+        return $this->createQueryBuilder('p')
+        ->setMaxResults(4)
+        ->getQuery()
+        ->getResult();
+    } 
+
     // /**
     //  * @return Videogame[] Returns an array of Videogame objects
     //  */
