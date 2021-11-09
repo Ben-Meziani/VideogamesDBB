@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\HttpClient\HttpClient;
 
 class ApiService
 {
@@ -42,19 +42,26 @@ class ApiService
         return $responseInArrayFormat;
     }
 
-    public function curlApi(): void
+    public function curlApi()
     {
         $token = self::getToken();
+        $tokenBearer = $token['access_token'];
         $client_id = 'iqyfswd35518044vioxjkvdmsgvq1w';
         $body = 'fields *; limit 500;';
         $url = 'https://api.igdb.com/v4/games';
         $curl = curl_init();
         $headers = array(
             'Client-ID: ' . $client_id,
-            'Authorization: Bearer ' . $token,
+            'Authorization: Bearer ' . $tokenBearer,
         );
+
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+        $responseInJsonFormat = curl_exec($curl);
+        curl_close($curl);
+        $response = json_decode($responseInJsonFormat, true);
+        return $response;
     }
 }

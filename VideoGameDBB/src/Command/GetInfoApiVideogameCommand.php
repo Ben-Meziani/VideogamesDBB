@@ -2,6 +2,8 @@
 
 namespace App\Command;
 
+use App\Repository\VideogameRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,6 +16,19 @@ class GetInfoApiVideogameCommand extends Command
     protected static $defaultName = 'app:get-infoApi-videogame';
     protected static $defaultDescription = 'Add a short description for your command';
 
+    private $em;
+    private $videogameRepository;
+
+    public function __construct(EntityManagerInterface $em, VideogameRepository $videogameRepository)
+    {
+        parent::__construct();
+
+        $this->em = $em;
+        $this->videogameRepository = $videogameRepository;
+    }
+
+
+
     protected function configure(): void
     {
         $this
@@ -25,9 +40,11 @@ class GetInfoApiVideogameCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
-
-
-
+    $videogames = $this->videogameRepository->findAll();
+        foreach($videogames as $videogame){
+            $videogame->setImageFilename('bbbbbbbbbbbbbbbbbbbbbbb');
+        }
+       $this->em->flush();
         
         $io = new SymfonyStyle($input, $output);
         $arg1 = $input->getArgument('arg1');
