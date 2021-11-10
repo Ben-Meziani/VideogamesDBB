@@ -42,13 +42,14 @@ class ApiService
         return $responseInArrayFormat;
     }
 
-    public function curlApi()
+    public function curlApi($endEndpoint)
     {
+        // dd($endEndpoint);
         $token = self::getToken();
         $tokenBearer = $token['access_token'];
         $client_id = 'iqyfswd35518044vioxjkvdmsgvq1w';
         $body = 'fields *; limit 500;';
-        $url = 'https://api.igdb.com/v4/games';
+        $url = 'https://api.igdb.com/v4/'.$endEndpoint;
         $curl = curl_init();
         $headers = array(
             'Client-ID: ' . $client_id,
@@ -57,6 +58,7 @@ class ApiService
 
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         $responseInJsonFormat = curl_exec($curl);

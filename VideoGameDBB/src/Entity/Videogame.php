@@ -52,6 +52,11 @@ class Videogame
      */
     private $imageFilename;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $summary;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -151,6 +156,18 @@ class Videogame
     public function setImageFilename(?string $imageFilename): self
     {
         $this->imageFilename = $imageFilename;
+
+        return $this;
+    }
+
+    public function getSummary(): ?string
+    {
+        return $this->summary;
+    }
+
+    public function setSummary(?string $summary): self
+    {
+        $this->summary = $summary;
 
         return $this;
     }

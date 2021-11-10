@@ -37,6 +37,7 @@ class ApiController extends AbstractController
     public function JsonCreateVideoGame(Request $request, EntityManagerInterface $em)
     {
         $data = json_decode($request->getContent(), true);
+        dd($data);
         if(isset($data)){
             $id = $data['categories'][0]['id'];
             $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
